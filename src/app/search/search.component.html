@@ -1,0 +1,10 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" class="form">
+        <input type="text" placeholder="Enter a symbol" [formControl]="control" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let ticker of filteredTickers | async" [value]="ticker">
+                {{ticker}}
+            </mat-option>
+        </mat-autocomplete>
+    </form>
+</div>
