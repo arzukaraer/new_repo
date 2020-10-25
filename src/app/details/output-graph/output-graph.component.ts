@@ -16,9 +16,9 @@ export class OutputGraphComponent implements OnInit {
   ticker: string='';
   
   Highcharts: typeof Highcharts = Highcharts;
-  chartOptions: Highcharts.Options = {
+  chartOptions: any = {
     series: [{
-      data: [1, 2, 3],
+      data: [],
       type: 'line'
     }]
   };
@@ -28,6 +28,42 @@ export class OutputGraphComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit():void{
+
+    this.route.params.subscribe(params => this.ticker = params.ticker);
+    this.outputGraphService.getHighstockChart(this.ticker)
+      .subscribe((chartData) => {
+        //console.log("CHART here");
+        //console.log(this.ticker);
+        //console.log(chartData);
+        this.chartHighStockData = chartData;
+       //console.log(this.chartHighStockData.length);
+        for (var i=0; i<this.chartHighStockData.length;i++){
+          var regexpNames= /(\d+)-(\d+)-(\d+)\w(\d+):(\d+):(\d+)/mg;
+          //console.log(this.chartHighStockData[0].date);
+          var match=regexpNames.exec(this.chartHighStockData[i].date);
+          console.log(match);
+          var utc_time=Date.UTC(parseInt(match[1]),parseInt(match[2])-1,parseInt(match[3]),parseInt(match[4]),parseInt(match[5]));
+          //console.log(utc_time);
+          var price=this.chartHighStockData[i].open;
+          this.data.push([utc_time,price]);
+          //console.log(this.data)
+          this.chartOptions = {
+            xAxis: {
+              type: 'datetime',
+              labels: {
+                formatter: function() {
+                  return Highcharts.dateFormat('%H:%M', this.value)
+                }
+              }
+            },
+            series: [{
+              data: this.data,
+              type: 'line'
+            }]
+          }
+          };
+      });
+
 
 
       }

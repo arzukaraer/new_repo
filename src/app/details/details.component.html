@@ -1,5 +1,6 @@
  <h1>{{datafromservice.ticker}}</h1>
  <h2>{{datafromcompany.exchangeCode}}</h2>
+ 
  <mat-tab-group>
         <mat-tab label="Summary"> <div id="information" class="float-sm-left">
                                   High Price {{datafromservice.high}} <br>
@@ -14,7 +15,9 @@
           <app-output-graph></app-output-graph>
         </div>
         </mat-tab>
-        <mat-tab label="TopNews">Content 2</mat-tab>
+        <mat-tab label="TopNews">
+        <div>{{articles[0].title}}</div>  
+        </mat-tab>
         <mat-tab label="Charts"> Content 3</mat-tab>
  </mat-tab-group>
-
+ 

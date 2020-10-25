@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DetailsService } from './details.service';
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap'
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-details',
@@ -27,13 +28,18 @@ export class DetailsComponent implements OnInit {
   datafromcompany;
   topCompanyNews;
   articles;
+  closeResult;
+  modalReference;
+  isfavorited;
 
   
   
 
   constructor(
     private detailsService: DetailsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private modalService: NgbModal
+    ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => this.ticker = params.ticker);
@@ -63,4 +69,46 @@ export class DetailsComponent implements OnInit {
         });
 
   }
+  open(content) {
+    this.modalReference=this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    this.modalReference.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  buyStock() {
+    localStorage.setItem("key","value");
+    this.modalReference.dismiss();
+
+
+
+
+  }
+  onClickStar(){
+  let isClicked=localStorage.getItem(this.ticker+"star");
+  if (isClicked === undefined){
+     localStorage.setItem(this.ticker+"star",JSON.stringify(true));
+  }
+  else{
+     this.isfavorited= JSON.stringify(!JSON.parse(localStorage.getItem(this.ticker+"star")));
+     console.log(this.isfavorited);
+     localStorage.setItem(this.ticker+"star",this.isfavorited);
+     
+  }
+  
+  
+  }
 }
+
+

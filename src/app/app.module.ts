@@ -17,6 +17,8 @@ import { MatTabsModule}  from '@angular/material/tabs';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { OutputGraphComponent } from './details/output-graph/output-graph.component';
 import { NewsComponent } from './details/news/news.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 const routes: Routes = [
@@ -53,7 +55,8 @@ const routes: Routes = [
     MatToolbarModule,
     HttpClientModule,
     MatTabsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    NgbModule
     
     
 
