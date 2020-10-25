@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DetailsService } from './details.service';
-import * as Highcharts from 'highcharts';
+
 
 @Component({
   selector: 'app-details',
@@ -23,6 +23,10 @@ export class DetailsComponent implements OnInit {
   previousClose= 107.12; 
   volume=11223;
   desc="aaakdi";
+  datafromservice;
+  datafromcompany;
+  topCompanyNews;
+  articles;
 
   
   
@@ -33,10 +37,30 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => this.ticker = params.ticker);
-    this.detailsService.getDetails()
+    this.detailsService.getDetails(this.ticker)
       .subscribe((data) => {
+        console.log("here");
         console.log(this.ticker);
-        console.log(data)
+        console.log(data);
+        this.datafromservice = data[0];
+        console.log(this.datafromservice.name);
       });
+      this.detailsService.getCompanyOutlook(this.ticker)
+      .subscribe((companyData)=> {
+          console.log("HERE");
+          console.log(companyData);
+          this.datafromcompany=companyData;
+
+        });
+        this.detailsService.getTopNews(this.ticker)
+        .subscribe((topNews)=> {
+          console.log("Loc HERE");
+          console.log(topNews);
+          this.topCompanyNews=topNews;
+          this.articles=this.topCompanyNews.articles;
+          console.log(this.topCompanyNews.articles[0])
+
+        });
+
   }
 }

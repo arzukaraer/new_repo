@@ -20,7 +20,8 @@ export class SearchComponent implements OnInit {
   constructor(
     private router: Router,private searchService:SearchService) { }
 
-  ngOnInit() {this.searchService.getTickers('aapl').subscribe((data)=>{console.log(data)});
+  ngOnInit() {this.searchService.getTickers('').subscribe((data)=>{console.log(data)});
+    
     this.filteredTickers = this.control.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -37,6 +38,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit(): void {
+    
     this.router.navigate(['/details/' + this.control.value.split("|")[0].trim()]);
   }
 

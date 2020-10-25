@@ -15,6 +15,8 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule}  from '@angular/material/tabs';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { OutputGraphComponent } from './details/output-graph/output-graph.component';
+import { NewsComponent } from './details/news/news.component';
 
 
 const routes: Routes = [
@@ -32,6 +34,8 @@ const routes: Routes = [
     WatchlistComponent,
     DetailsComponent,
     PortfolioComponent,
+    OutputGraphComponent,
+    NewsComponent,
     
 
     
