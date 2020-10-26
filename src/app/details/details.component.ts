@@ -31,6 +31,7 @@ export class DetailsComponent implements OnInit {
   closeResult;
   modalReference;
   isfavorited;
+  dp;
 
   
   
@@ -90,11 +91,8 @@ export class DetailsComponent implements OnInit {
   buyStock() {
     localStorage.setItem("key","value");
     this.modalReference.dismiss();
-
-
-
-
   }
+  
   onClickStar(){
   let isClicked=localStorage.getItem(this.ticker+"star");
   if (isClicked === undefined){
@@ -109,6 +107,13 @@ export class DetailsComponent implements OnInit {
   
   
   }
+  close(){
+
+    this.modalReference.close('Save click');
+    console.log(this.dp);
+
+  }
+
 }
 
 

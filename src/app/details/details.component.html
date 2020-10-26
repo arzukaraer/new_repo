@@ -20,10 +20,11 @@
         </mat-tab>
         <mat-tab label="Charts"> Content 3</mat-tab>
  </mat-tab-group>
-
  <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <div class="d-flex"></div>
+    <h4 class="modal-title" id="modal-basic-title">{{datafromservice.ticker}}</h4><br>
+    <h4 class="modal-title" id="modal-basic-title">Current Price: {{datafromservice.open}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -31,18 +32,15 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
+        <label for="dateOfBirth">Quantity</label>
         <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
+          <input id="dateOfBirth" class="form-control" name="dp">
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="modal.close('Save click')">BUY</button>
+    <button [isdisabled]="dp<0" type="button" class="btn btn-success" (click)=close()>BUY</button>
   </div>
 </ng-template>
 
