@@ -24,7 +24,7 @@
   <div class="modal-header">
     <div class="d-flex"></div>
     <h4 class="modal-title" id="modal-basic-title">{{datafromservice.ticker}}</h4><br>
-    <h4 class="modal-title" id="modal-basic-title">Current Price: {{datafromservice.open}}</h4>
+    <h4>Current Price: {{datafromservice.open}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -34,13 +34,13 @@
       <div class="form-group">
         <label for="dateOfBirth">Quantity</label>
         <div class="input-group">
-          <input id="dateOfBirth" class="form-control" name="dp">
+          <input id="dateOfBirth" class="form-control" [(ngModel)]="dp" name="dp">
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button [isdisabled]="dp<0" type="button" class="btn btn-success" (click)=close()>BUY</button>
+    <button [disabled]="dp<0" type="button" class="btn btn-success" (click)=close()>BUY</button>
   </div>
 </ng-template>
 

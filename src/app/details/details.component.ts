@@ -32,6 +32,7 @@ export class DetailsComponent implements OnInit {
   modalReference;
   isfavorited;
   dp;
+  quantity;
 
   
   
@@ -108,7 +109,7 @@ export class DetailsComponent implements OnInit {
   
   }
   close(){
-
+    this.quantity=this.dp;
     this.modalReference.close('Save click');
     console.log(this.dp);
 
