@@ -18,6 +18,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { OutputGraphComponent } from './details/output-graph/output-graph.component';
 import { NewsComponent } from './details/news/news.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalOutputComponent } from './details/modal-output/modal-output.component';
+import { HighchartsComponent } from './details/highcharts/highcharts.component';
 
 
 
@@ -38,6 +40,8 @@ const routes: Routes = [
     PortfolioComponent,
     OutputGraphComponent,
     NewsComponent,
+    ModalOutputComponent,
+    HighchartsComponent,
     
 
     
@@ -64,6 +68,9 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
+  entryComponents: [
+    ModalOutputComponent,
+],
   providers: [],
   bootstrap: [AppComponent]
 })

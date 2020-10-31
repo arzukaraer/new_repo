@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
   tickers: string[] = ['NFLX | Netflix', 'AAPL | Apple', 'MSFT | Microsoft', 'Ticker Four'];
   filteredTickers: Observable<string[]>;
   street: string = "";
+  
 
   constructor(
     private router: Router,private searchService:SearchService) { }

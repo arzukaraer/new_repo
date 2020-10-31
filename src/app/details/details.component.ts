@@ -33,7 +33,9 @@ export class DetailsComponent implements OnInit {
   isfavorited;
   dp;
   quantity;
-
+  totalPrice;
+  portfolioArray=[];
+  
   
   
 
@@ -44,6 +46,7 @@ export class DetailsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    
     this.route.params.subscribe(params => this.ticker = params.ticker);
     this.detailsService.getDetails(this.ticker)
       .subscribe((data) => {
@@ -108,13 +111,37 @@ export class DetailsComponent implements OnInit {
   
   
   }
-  close(){
-    this.quantity=this.dp;
-    this.modalReference.close('Save click');
-    console.log(this.dp);
 
+  modelChangeFn() {
+    this.quantity=this.dp;
+    this.totalPrice=this.quantity*this.datafromservice.open;
   }
+  
+  close(){
+    var portfoliokey="portfolio"+this.datafromcompany.ticker 
+
+    if (portfoliokey in localStorage){
+       console.log("FOUND THE KEY")
+       this.portfolioArray=JSON.parse(localStorage.getItem("portfolio"+ this.datafromcompany.ticker));
+       this.portfolioArray[0]=parseInt(this.dp)+parseInt(this.portfolioArray[0]);
+       //console.log(this.portfolioArray[0][1]);
+       this.portfolioArray[1]=parseFloat(this.portfolioArray[1])+ parseFloat(this.dp)*parseFloat(this.datafromservice.open);
+       console.log(parseFloat(this.portfolioArray[1]))
+       localStorage.setItem("portfolio"+ this.datafromcompany.ticker ,JSON.stringify(this.portfolioArray));
+
+    }
+
+    else{
+      this.portfolioArray.push(this.dp)
+      this.portfolioArray.push(this.dp*this.datafromservice.open);
+      localStorage.setItem("portfolio"+ this.datafromcompany.ticker ,JSON.stringify(this.portfolioArray));
+      console.log(localStorage.getItem("portfolio"+ this.datafromcompany.ticker));
+      console.log(this.dp);
+      }
+      this.modalReference.close('Save click');
 
 }
 
 
+
+}

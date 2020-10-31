@@ -1,1 +1,22 @@
-<p>portfolio works!</p>
+<div class="card" *ngFor="let item of portfolio_keys; let i = index">
+    <h5 class="card-header">{{item}}</h5>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <div class="textarea1">
+      <p class="card-text">Quantity : {{portfolio_quantity[i]}}<br>
+                           Average Cost/Share: {{portfolio_averagecost_share[i]}}<br>
+                           Total Cost: {{portfolio_totalcost[i]}}<br>
+    
+    </p>
+    </div>
+    <div class="textarea2">
+        <p class="card-text">Change : {{change_perc_array[i]}}<br>
+                             Current Price:  {{portfolio_currentprice[i]}}<br>
+                             Market Value: {{portfolio_currentvalue[i]}}<br>
+                             <a href="#" class="btn btn-success">BUY</a><a href="#" class="btn btn-danger">SELL</a>
+      </p>
+      </div>
+      
+    
+    </div>
+  </div>

@@ -1,6 +1,6 @@
 <h1>{{datafromservice.ticker}}</h1>
-<h2>{{datafromcompany.exchangeCode}}</h2>
-<button class="btn btn-lg btn-success" (click)="open(content)">BUY</button>
+ <h2>{{datafromcompany.exchangeCode}}</h2>
+ <button class="btn btn-lg btn-success" (click)="open(content)">BUY</button>
  <mat-tab-group>
         <mat-tab label="Summary"> <div id="information" class="float-sm-left">
                                   High Price {{datafromservice.high}} <br>
@@ -11,40 +11,44 @@
                                   <h1>Company Description</h1><br>
                                   {{datafromcompany.description}}
         </div>
-        <div>
-          <app-output-graph></app-output-graph>
-        </div>
+        <div><app-output-graph></app-output-graph></div>
         </mat-tab>
-        <mat-tab label="TopNews">
-        <div>{{articles[0].title}}</div>  
-        </mat-tab>
-        <mat-tab label="Charts"> Content 3</mat-tab>
- </mat-tab-group>
- <ng-template #content let-modal>
-  <div class="modal-header">
-    <div class="d-flex"></div>
-    <h4 class="modal-title" id="modal-basic-title">{{datafromservice.ticker}}</h4><br>
-    <h4>Current Price: {{datafromservice.open}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Quantity</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" [(ngModel)]="dp" name="dp">
+        <mat-tab label="TopNews"><div *ngFor="let item of articles| slice:0:10; let i=index">
+          <div style="display:inline-block;vertical-align:top;padding-top:20px;padding-left:10px;background-color: #f1f1f1; height:100px; width:990px" (click)="open(content)">  
+          <div style="float:left;padding-left:20px"> <img style="height:50px;width:50px" src="{{item.urlToImage}}" alt='text here'></div>
+          <div style="padding-left:10px">{{item.title}}</div>
+          </div>
+          
+          <div><p></p></div> 
+          <div><p></p></div>  
+          </div>
+  
+  </mat-tab>
+          <mat-tab label="Charts"> <app-highcharts></app-highcharts></mat-tab>
+   </mat-tab-group>
+   <ng-template #content let-modal>
+    <div class="modal-header">
+      <div class="d-flex"></div>
+      <h4 class="modal-title" id="modal-basic-title">{{datafromservice.ticker}}<br>
+      Current Price: {{datafromservice.open}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="dateOfBirth">Quantity</label>
+          <div class="input-group">
+            <input id="dateOfBirth" class="form-control" [(ngModel)]="dp" (ngModelChange)="modelChangeFn($event)" name="dp">
+          </div>
         </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button [disabled]="dp<0" type="button" class="btn btn-success" (click)=close()>BUY</button>
-  </div>
-</ng-template>
-
-
-
-
+      </form>
+      <h3 *ngIf="this.dp>0">TotalPrice:{{this.dp*datafromservice.open}}</h3>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="dp<0" type="button" class="btn btn-success" (click)=close()>BUY</button>
+    </div>
+  </ng-template>
+  
  

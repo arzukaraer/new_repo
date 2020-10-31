@@ -47,6 +47,7 @@ export class OutputGraphComponent implements OnInit {
           var price=this.chartHighStockData[i].open;
           this.data.push([utc_time,price]);
           //console.log(this.data)
+        }
           this.chartOptions = {
             xAxis: {
               type: 'datetime',
@@ -61,7 +62,7 @@ export class OutputGraphComponent implements OnInit {
               type: 'line'
             }]
           }
-          };
+          
       });
 
 
